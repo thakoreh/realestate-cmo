@@ -49,7 +49,7 @@ export default function Terms() {
           <section>
             <h2 className="text-base font-semibold text-foreground mb-3">4. Subscription &amp; Billing</h2>
             <p>
-              The Service is offered at $49/month with a 1-day free trial. Subscription fees are
+              The Service is offered at $49/month with a 3-day free trial. Subscription fees are
               non-refundable. You may cancel anytime — access continues until the end of the current
               billing period. We reserve the right to modify pricing with 30 days notice.
             </p>

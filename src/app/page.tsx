@@ -5,15 +5,20 @@ import { useState } from "react";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
+    setLoading(true);
+    setError(null);
+
     // Send to Buttondown API
     try {
-      await fetch("https://api.buttondown.email/v1/subscribers", {
+      const res = await fetch("https://api.buttondown.email/v1/subscribers", {
         method: "POST",
         headers: {
           "Authorization": `Token ${process.env.NEXT_PUBLIC_BUTTONDOWN_API_KEY}`,
@@ -21,10 +26,17 @@ export default function Home() {
         },
         body: JSON.stringify({ email, tags: ["realtorcmo"] }),
       });
+
+      if (!res.ok) {
+        throw new Error("Signup failed");
+      }
     } catch {
-      // Silently fail
+      setError("Something went wrong. Please try again.");
+      setLoading(false);
+      return;
     }
 
+    setLoading(false);
     setSubmitted(true);
   };
 
@@ -88,14 +100,18 @@ export default function Home() {
                 </div>
                 <button
                   type="submit"
-                  className="gradient-cta text-white text-sm font-medium px-5 py-3 rounded-xl sm:rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap shrink-0 mx-4 mb-3 sm:mx-0 sm:mb-0"
+                  disabled={loading}
+                  className="gradient-cta text-white text-sm font-medium px-5 py-3 rounded-xl sm:rounded-xl hover:opacity-90 transition-opacity whitespace-nowrap shrink-0 mx-4 mb-3 sm:mx-0 sm:mb-0 disabled:opacity-50"
                 >
-                  Get early access
+                  {loading ? "Signing up..." : "Get early access"}
                 </button>
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                $49/mo &middot; 1 day free trial &middot; Cancel anytime
+                $49/mo &middot; 3 day free trial &middot; Cancel anytime
               </p>
+              {error && (
+                <p className="text-xs text-red-500 mt-2">{error}</p>
+              )}
             </form>
           ) : (
             <div className="text-center py-6">
@@ -113,7 +129,7 @@ export default function Home() {
                 Open @RealtorCMO_bot →
               </a>
               <p className="text-xs text-muted-foreground mt-4">
-                1 day free trial · No credit card required
+                3 day free trial · No credit card required
               </p>
             </div>
           )}
@@ -126,7 +142,7 @@ export default function Home() {
           </p>
           <div className="flex overflow-hidden mask-x-fade">
             <div className="flex gap-2 animate-marquee">
-              {[...cities, ...cities].map((city, i) => (
+              {cities.map((city, i) => (
                 <div
                   key={i}
                   className="flex-shrink-0 px-3 py-1.5 rounded-full border bg-card text-[11px] text-muted-foreground whitespace-nowrap"
@@ -147,7 +163,7 @@ export default function Home() {
             $49<span className="text-lg text-muted-foreground font-normal">/mo</span>
           </p>
           <p className="text-xs text-muted-foreground">
-            1 day free trial &middot; Cancel anytime
+            3 day free trial &middot; Cancel anytime
           </p>
         </div>
       </section>
@@ -283,14 +299,18 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="gradient-cta text-white text-sm font-medium px-5 py-3 sm:py-3.5 rounded-xl hover:opacity-90 transition-opacity mx-4 mb-3 sm:mx-0 sm:mb-0 whitespace-nowrap"
+                disabled={loading}
+                className="gradient-cta text-white text-sm font-medium px-5 py-3 sm:py-3.5 rounded-xl hover:opacity-90 transition-opacity mx-4 mb-3 sm:mx-0 sm:mb-0 whitespace-nowrap disabled:opacity-50"
               >
-                Join early access
+                {loading ? "Signing up..." : "Join early access"}
               </button>
             </div>
             <p className="text-xs text-muted-foreground mt-3">
-              $49/mo &middot; 1 day free trial &middot; Cancel anytime
+              $49/mo &middot; 3 day free trial &middot; Cancel anytime
             </p>
+            {error && (
+              <p className="text-xs text-red-500 mt-2">{error}</p>
+            )}
           </form>
         ) : (
           <div className="text-center py-6">
@@ -328,10 +348,10 @@ export default function Home() {
             >
               Contact
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="/terms" className="hover:text-foreground transition-colors">
               Privacy
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="/terms" className="hover:text-foreground transition-colors">
               Terms
             </a>
           </div>
