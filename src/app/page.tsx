@@ -11,18 +11,18 @@ export default function Home() {
     e.preventDefault();
     if (!email) return;
 
-    // Try to send to webhook (if available)
+    // Send to Buttondown API
     try {
-      const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        });
-      }
+      await fetch("https://api.buttondown.email/v1/subscribers", {
+        method: "POST",
+        headers: {
+          "Authorization": "Token e195087c-ca0e-48f0-8929-06c481b5ba18",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, tags: ["realtorcmo"] }),
+      });
     } catch {
-      // Silently fail — webhook might not be running yet
+      // Silently fail
     }
 
     setSubmitted(true);
@@ -98,11 +98,22 @@ export default function Home() {
               </p>
             </form>
           ) : (
-            <div className="text-center py-8">
+            <div className="text-center py-6">
               <div className="text-4xl mb-4">🎉</div>
-              <p className="text-lg font-medium mb-2">You're on the list.</p>
-              <p className="text-sm text-muted-foreground">
-                We'll reach out when your AI CMO is ready.
+              <p className="text-lg font-medium mb-2">You're in — start your free trial</p>
+              <p className="text-sm text-muted-foreground mb-5">
+                Message your AI CMO on Telegram to begin:
+              </p>
+              <a
+                href="https://t.me/RealtorCMO_bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gradient-cta text-white text-sm font-medium px-6 py-3 rounded-xl hover:opacity-90 transition-opacity inline-block"
+              >
+                Open @RealtorCMO_bot →
+              </a>
+              <p className="text-xs text-muted-foreground mt-4">
+                1 day free trial · No credit card required
               </p>
             </div>
           )}
@@ -259,24 +270,51 @@ export default function Home() {
           Telegram thread.
         </p>
 
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto px-4 sm:px-0">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 rounded-2xl border bg-card sm:pr-2">
-            <input
-              type="email"
-              placeholder="Your work email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1 px-4 py-3.5 sm:py-4 bg-transparent text-sm placeholder:text-muted-foreground focus:outline-none"
-            />
-            <button
-              type="submit"
-              className="gradient-cta text-white text-sm font-medium px-5 py-3 sm:py-3.5 rounded-xl hover:opacity-90 transition-opacity mx-4 mb-3 sm:mx-0 sm:mb-0 whitespace-nowrap"
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="max-w-md mx-auto px-4 sm:px-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-0 rounded-2xl border bg-card sm:pr-2">
+              <input
+                type="email"
+                placeholder="Your work email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 px-4 py-3.5 sm:py-4 bg-transparent text-sm placeholder:text-muted-foreground focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="gradient-cta text-white text-sm font-medium px-5 py-3 sm:py-3.5 rounded-xl hover:opacity-90 transition-opacity mx-4 mb-3 sm:mx-0 sm:mb-0 whitespace-nowrap"
+              >
+                Join early access
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              $49/mo &middot; 1 day free trial &middot; Cancel anytime
+            </p>
+          </form>
+        ) : (
+          <div className="text-center py-6">
+            <div className="text-4xl mb-4">🎉</div>
+            <p className="text-lg font-medium mb-2">You're in — start your free trial</p>
+            <p className="text-sm text-muted-foreground mb-5">
+              Message your AI CMO on Telegram to begin:
+            </p>
+            <a
+              href="https://t.me/RealtorCMO_bot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gradient-cta text-white text-sm font-medium px-6 py-3 rounded-xl hover:opacity-90 transition-opacity inline-block"
             >
-              Join early access
-            </button>
+              Open @RealtorCMO_bot →
+            </a>
           </div>
-        </form>
+        )}
+        <p className="text-xs text-muted-foreground mt-4">
+          Already on Telegram?{' '}
+          <a href="https://t.me/RealtorCMO_bot" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">
+            Message @RealtorCMO_bot
+          </a>
+        </p>
       </section>
 
       {/* ─── FOOTER ─── */}
