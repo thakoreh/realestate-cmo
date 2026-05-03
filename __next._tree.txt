@@ -1,3 +1,3 @@
 :HL["/realestate-cmo/_next/static/chunks/0q21.2~d89-kp.css","style"]
 :HL["/realestate-cmo/_next/static/media/5c285b27cdda1fe8-s.p.0yo6-5yoeeudq.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"t4cAYBTRZOQE5XdENxL6c"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"W50RbyeVSsETi-XEBVQ5G"}
