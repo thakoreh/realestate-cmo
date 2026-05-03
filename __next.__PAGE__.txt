@@ -3,7 +3,7 @@
 3:I[52683,["/realestate-cmo/_next/static/chunks/0dbhjjzl8qfwv.js","/realestate-cmo/_next/static/chunks/05d6kq1.7xr-m.js"],"default"]
 6:I[97367,["/realestate-cmo/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
 7:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/realestate-cmo/_next/static/chunks/05d6kq1.7xr-m.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"L3D37sRA1RnT4h2igKW86"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/realestate-cmo/_next/static/chunks/05d6kq1.7xr-m.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"t4cAYBTRZOQE5XdENxL6c"}
 4:{}
 5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
 8:null
