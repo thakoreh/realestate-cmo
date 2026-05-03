@@ -7,9 +7,24 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+
+    // Try to send to webhook (if available)
+    try {
+      const webhookUrl = process.env.NEXT_PUBLIC_WEBHOOK_URL;
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+      }
+    } catch {
+      // Silently fail — webhook might not be running yet
+    }
+
     setSubmitted(true);
   };
 
