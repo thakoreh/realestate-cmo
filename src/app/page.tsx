@@ -16,7 +16,7 @@ export default function Home() {
       await fetch("https://api.buttondown.email/v1/subscribers", {
         method: "POST",
         headers: {
-          "Authorization": "Token e195087c-ca0e-48f0-8929-06c481b5ba18",
+          "Authorization": `Token ${process.env.NEXT_PUBLIC_BUTTONDOWN_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, tags: ["realtorcmo"] }),

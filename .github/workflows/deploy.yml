@@ -26,6 +26,7 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://thakoreh.github.io/realestate-cmo
+          NEXT_PUBLIC_BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
